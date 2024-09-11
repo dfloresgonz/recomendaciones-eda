@@ -1,28 +1,49 @@
-from flask import Flask, render_template, request, redirect, url_for
-from src.data.users import get_users  # Adjust the import path as necessary
+from flask import Flask, render_template, request, redirect, url_for, session
+from src.services.login import authenticate
+from src.entity.user import User
 
 app = Flask(__name__)
+app.secret_key = 'abc123xyz'
 
-# Ruta para la página de inicio
+# Simular credenciales para validar el login
+VALID_USERNAME = "admin"
+VALID_PASSWORD = "password123"
+
 @app.route('/')
 def index():
-    users = get_users()
-    return render_template('index.html', users=users)
+    user_sess = session.get('sess_user')
+    if user_sess:
+        return redirect(url_for('home'))
+    return render_template('login.html')
 
-# Ruta para un formulario
-@app.route('/form', methods=['GET', 'POST'])
-def form():
-    if request.method == 'POST':
-        # Procesa los datos enviados
-        name = request.form.get('name')
-        return redirect(url_for('greet', name=name))
-    return render_template('form.html')
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
 
-# Ruta para saludar al usuario
-@app.route('/greet/<name>')
-def greet(name):
-    return f'¡Hola, {name}!'
+    user = authenticate(username, password)
+    
+    # Validar credenciales
+    if user is not None:
+        session['sess_user'] = user.__dict__
+        return redirect(url_for('home'))
+    else:
+        return "Invalid credentials. Please try again."
 
-# Ejecuta la aplicación
+@app.route('/home')
+def home():
+    user_sess = session.get('sess_user')
+    if user_sess:
+        user = User(user_sess['name'], user_sess['username'], user_sess['password'])
+        # username = request.args.get('username')
+        return render_template('home.html', user=user)
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.clear()  # Clear the session to log the user out
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True)
