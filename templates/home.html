@@ -121,22 +121,22 @@
 </head>
 <body>
     <header>
-        <h1 class="store-name">Fresh Mart Grocery Store</h1>
+        <h1 class="store-name">Tienda Utec</h1>
         <div class="user-profile">
             <img src="{{ user.profile_pic }}" alt="User Profile Picture">
             <span class="user-name">{{ user.name }}</span>
             <form action="{{ url_for('logout') }}" method="post">
-              <button type="submit" class="logout-button">Logout</button>
+              <button type="submit" class="logout-button">Salir</button>
             </form>
         </div>
     </header>
     <nav>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Specials</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Productos</a></li>
+            <li><a href="#">Ofertones</a></li>
+            <li><a href="#">Acerca de nosotros</a></li>
+            <li><a href="#">Contáctanos</a></li>
         </ul>
     </nav>
     <main>
@@ -193,7 +193,7 @@
         </div>
     </main>
     <footer>
-        <p>&copy; 2024 Fresh Mart Grocery Store. All rights reserved.</p>
+        <p>&copy; 2024 Grupo 7 EDA. Todos los derechos reservados.</p>
     </footer>
 </body>
 </html>

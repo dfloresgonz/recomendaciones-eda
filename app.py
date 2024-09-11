@@ -1,13 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from src.services.login import authenticate
 from src.entity.user import User
 
 app = Flask(__name__)
 app.secret_key = 'abc123xyz'
-
-# Simular credenciales para validar el login
-VALID_USERNAME = "admin"
-VALID_PASSWORD = "password123"
 
 @app.route('/')
 def index():
@@ -26,9 +22,9 @@ def login():
     # Validar credenciales
     if user is not None:
         session['sess_user'] = user.__dict__
-        return redirect(url_for('home'))
+        return jsonify({'success': True})
     else:
-        return "Invalid credentials. Please try again."
+        return jsonify({'success': False, 'error': 'Credenciales incorrectas'})
 
 @app.route('/home')
 def home():
