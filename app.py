@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
+from src.data.users import get_users  # Adjust the import path as necessary
 
 app = Flask(__name__)
 
 # Ruta para la página de inicio
 @app.route('/')
 def index():
-    return render_template('index.html')
+    users = get_users()
+    return render_template('index.html', users=users)
 
 # Ruta para un formulario
 @app.route('/form', methods=['GET', 'POST'])
