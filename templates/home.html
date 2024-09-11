@@ -3,32 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Fresh Mart Grocery Store</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .store-name {
+            margin: 0;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .user-name {
+            margin-right: 10px;
+        }
+        .logout-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .logout-button:hover {
+            background-color: #555;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
-        .welcome-container {
+        nav ul li {
+            margin: 0 1rem;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        .featured-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
             text-align: center;
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            font-size: 0.9em;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+        .product h3 {
+            margin: 0.5rem 0;
+            font-size: 1em;
+        }
+        .product p {
+            margin: 0.25rem 0;
+        }
+        .buy-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9em;
+            margin-top: auto;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .buy-button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
         }
     </style>
 </head>
 <body>
-    <div class="welcome-container">
-        <h1>Hola, {{ user.name }}!</h1>
-        <p>You have successfully logged in.</p>
-        <form action="{{ url_for('logout') }}" method="post">
-          <button type="submit" class="logout-button">Logout</button>
-      </form>
-    </div>
+    <header>
+        <h1 class="store-name">Fresh Mart Grocery Store</h1>
+        <div class="user-profile">
+            <img src="{{ user.profile_pic }}" alt="User Profile Picture">
+            <span class="user-name">{{ user.name }}</span>
+            <form action="{{ url_for('logout') }}" method="post">
+              <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Specials</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Featured Products</h2>
+        <div class="featured-products">
+            <div class="product">
+                <img src="/api/placeholder/150/150" alt="Fresh Apples">
+                <h3>Fresh Apples</h3>
+                <p>$1.99/lb</p>
+                <button class="buy-button">Buy Now</button>
+            </div>
+            <div class="product">
+                <img src="/api/placeholder/150/150" alt="Organic Milk">
+                <h3>Organic Milk</h3>
+                <p>$3.49/gallon</p>
+                <button class="buy-button">Buy Now</button>
+            </div>
+            <div class="product">
+                <img src="/api/placeholder/150/150" alt="Whole Grain Bread">
+                <h3>Whole Grain Bread</h3>
+                <p>$2.99/loaf</p>
+                <button class="buy-button">Buy Now</button>
+            </div>
+            <div class="product">
+                <img src="/api/placeholder/150/150" alt="Free-Range Eggs">
+                <h3>Free-Range Eggs</h3>
+                <p>$4.99/dozen</p>
+                <button class="buy-button">Buy Now</button>
+            </div>
+            <div class="product">
+                <img src="/api/placeholder/150/150" alt="Organic Spinach">
+                <h3>Organic Spinach</h3>
+                <p>$3.99/bunch</p>
+                <button class="buy-button">Buy Now</button>
+            </div>
+            <div class="product">
+                <img src="/api/placeholder/150/150" alt="Ripe Bananas">
+                <h3>Ripe Bananas</h3>
+                <p>$0.99/lb</p>
+                <button class="buy-button">Buy Now</button>
+            </div>
+            <div class="product">
+                <img src="/api/placeholder/150/150" alt="Greek Yogurt">
+                <h3>Greek Yogurt</h3>
+                <p>$4.49/32oz</p>
+                <button class="buy-button">Buy Now</button>
+            </div>
+            <div class="product">
+                <img src="/api/placeholder/150/150" alt="Chicken Breast">
+                <h3>Chicken Breast</h3>
+                <p>$5.99/lb</p>
+                <button class="buy-button">Buy Now</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Fresh Mart Grocery Store. All rights reserved.</p>
+    </footer>
 </body>
 </html>

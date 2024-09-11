@@ -34,8 +34,7 @@ def login():
 def home():
     user_sess = session.get('sess_user')
     if user_sess:
-        user = User(user_sess['name'], user_sess['username'], user_sess['password'])
-        # username = request.args.get('username')
+        user = User(user_sess['name'], user_sess['username'], user_sess['password'], user_sess['profile_pic'])
         return render_template('home.html', user=user)
     else:
         return redirect(url_for('index'))
