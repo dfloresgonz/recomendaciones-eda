@@ -140,56 +140,48 @@
         </ul>
     </nav>
     <main>
-        <h2>Featured Products</h2>
+      <h2>Productos recomendados</h2>
+      <div class="featured-products">
+        {% for product in products %}
+          <div class="product">
+            <h3>{{ product.product_id }}</h3>
+            <h3>{{ product.category_code }}</h3>
+            <h3>{{ product.brand }}</h3>
+            <p>${{ product.price }}</p>
+            <p>{{ product.score }}</p>
+            <button class="buy-button">Buy Now</button>
+          </div>
+        {% endfor %}
+      </div>
+      <h2>Productos comprados</h2>
         <div class="featured-products">
+          {% for purchase in purchases %}
             <div class="product">
-                <img src="/api/placeholder/150/150" alt="Fresh Apples">
-                <h3>Fresh Apples</h3>
-                <p>$1.99/lb</p>
-                <button class="buy-button">Buy Now</button>
+              <h3>{{ purchase.product_id }}</h3>
+              <h3>{{ purchase.category_code }}</h3>
+              <h3>{{ purchase.brand }}</h3>
+              <p>${{ purchase.price }}</p>
             </div>
+          {% endfor %}
+        </div>
+      <h2>Usuarios similares</h2>
+        <div class="featured-products">
+          {% for similar_user in similar_users %}
             <div class="product">
-                <img src="/api/placeholder/150/150" alt="Organic Milk">
-                <h3>Organic Milk</h3>
-                <p>$3.49/gallon</p>
-                <button class="buy-button">Buy Now</button>
+                <h3>{{ similar_user.user_id }}</h3>
+                <h3>{{ similar_user.similarity_score }}</h3>
+                <div class="featured-products">
+                  {% for purchase in similar_user.purchases %}
+                    <div class="product">
+                      <h3>{{ purchase.product_id }}</h3>
+                      <h3>{{ purchase.category_code }}</h3>
+                      <h3>{{ purchase.brand }}</h3>
+                      <p>${{ purchase.price }}</p>
+                    </div>
+                  {% endfor %}
+                </div>
             </div>
-            <div class="product">
-                <img src="/api/placeholder/150/150" alt="Whole Grain Bread">
-                <h3>Whole Grain Bread</h3>
-                <p>$2.99/loaf</p>
-                <button class="buy-button">Buy Now</button>
-            </div>
-            <div class="product">
-                <img src="/api/placeholder/150/150" alt="Free-Range Eggs">
-                <h3>Free-Range Eggs</h3>
-                <p>$4.99/dozen</p>
-                <button class="buy-button">Buy Now</button>
-            </div>
-            <div class="product">
-                <img src="/api/placeholder/150/150" alt="Organic Spinach">
-                <h3>Organic Spinach</h3>
-                <p>$3.99/bunch</p>
-                <button class="buy-button">Buy Now</button>
-            </div>
-            <div class="product">
-                <img src="/api/placeholder/150/150" alt="Ripe Bananas">
-                <h3>Ripe Bananas</h3>
-                <p>$0.99/lb</p>
-                <button class="buy-button">Buy Now</button>
-            </div>
-            <div class="product">
-                <img src="/api/placeholder/150/150" alt="Greek Yogurt">
-                <h3>Greek Yogurt</h3>
-                <p>$4.49/32oz</p>
-                <button class="buy-button">Buy Now</button>
-            </div>
-            <div class="product">
-                <img src="/api/placeholder/150/150" alt="Chicken Breast">
-                <h3>Chicken Breast</h3>
-                <p>$5.99/lb</p>
-                <button class="buy-button">Buy Now</button>
-            </div>
+          {% endfor %}
         </div>
     </main>
     <footer>

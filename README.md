@@ -6,6 +6,13 @@
 
 ### Comands
 
+Crear y activar el entorno virtual
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
 Instalar flask
 
 ```bash
