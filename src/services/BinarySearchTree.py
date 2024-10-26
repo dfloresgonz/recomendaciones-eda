@@ -1,7 +1,7 @@
 import pandas as pd
 from collections import defaultdict
 from datetime import datetime
-from src.data.bd import get_all_data
+from src.repository.bd import get_all_data
 
 
 class Product:

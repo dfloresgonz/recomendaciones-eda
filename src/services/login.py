@@ -1,10 +1,7 @@
-from src.data.users import get_users
+from src.repository.bd import get_user_by_credentials
+
 
 def authenticate(username, password):
-  users = get_users()
+  user = get_user_by_credentials(username, password)
 
-  for user in users:
-    if user.username == username and user.password == password:
-      return user
-  
-  return None
+  return user

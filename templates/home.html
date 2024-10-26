@@ -149,7 +149,7 @@
             <h3>{{ product.brand }}</h3>
             <p>${{ product.price }}</p>
             <p>{{ product.score }}</p>
-            <button class="buy-button">Buy Now</button>
+            <button class="buy-button" onclick="buyProduct('{{ product.product_id }}', '{{ product.price }}', '{{ product.category_code }}', '{{ product.brand }}')">Buy Now</button>
           </div>
         {% endfor %}
       </div>
@@ -187,5 +187,29 @@
     <footer>
         <p>&copy; 2024 Grupo 7 EDA. Todos los derechos reservados.</p>
     </footer>
+    <script>
+      function buyProduct(product_id, price, category_code, brand) {
+        const object = { product_id, price, category_code, brand };
+        console.log(object);
+        fetch('/buy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(object),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Product purchased successfully!');
+            } else {
+                alert('Failed to purchase product.');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+      }
+      </script>
 </body>
 </html>
