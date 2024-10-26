@@ -3,7 +3,7 @@ from src.services.login import authenticate
 from src.entity.user import User
 from src.services.recomendaciones import get_recommendaciones, get_purchases, _get_similar_users, _load_data
 import sqlite3
-from datetime import datetime
+import src.services.buy as buy_service
 
 app = Flask(__name__)
 app.secret_key = 'abc123xyz'
@@ -52,27 +52,16 @@ def home():
 @app.route('/buy', methods=['POST'])
 def buy_product():
   data = request.get_json()
-  product_id = data['product_id']
-  price = data['price']
-  category_code = data['category_code']
-  brand = data['brand']
 
-  # Connect to SQLite database
-  conn = sqlite3.connect('src/data/database.db')
-  cursor = conn.cursor()
+  product_bought = {
+      'product_id': data['product_id'],
+      'price': data['price'],
+      'category_code': data['category_code'],
+      'brand': data['brand'],
+      'user_id': int(session.get('sess_user')['id'])
+  }
 
-  # Insert into purchases table
-  user_id = int(session.get('sess_user')['id'])
-  event_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
-
-  cursor.execute(
-      """INSERT INTO purchases (user_id, product_id, category_code, brand, price, event_time) 
-      VALUES (?,?,?,?,?,?)
-      """, (user_id, product_id, category_code, brand, price, event_time,))
-  conn.commit()
-
-  # Close the connection
-  conn.close()
+  buy_service.buy_product(product_bought)
 
   return jsonify({'success': True})
 

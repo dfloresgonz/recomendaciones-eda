@@ -101,6 +101,36 @@ def get_all_data():
   return df
 
 
+def buy_product(product_bought):
+  product_id = product_bought['product_id']
+  price = product_bought['price']
+  category_code = product_bought['category_code']
+  brand = product_bought['brand']
+  user_id = product_bought['user_id']
+  event_time = product_bought['event_time']
+
+  print(f'product_id: {product_id}')
+  print(f'price: {price}')
+  print(f'category_code: {category_code}')
+  print(f'brand: {brand}')
+  print(f'user_id: {user_id}')
+  print(f'event_time: {event_time}')
+
+  # Connect to SQLite database
+  conn = sqlite3.connect(DATABASE_PATH)
+  cursor = conn.cursor()
+
+  cursor.execute(
+      """INSERT INTO purchases (user_id, product_id, category_code, brand, price, event_time)
+      VALUES (?,?,?,?,?,?)
+      """, (user_id, product_id, category_code, brand, price, event_time,))
+  conn.commit()
+  rowcount = cursor.rowcount
+  cursor.close()
+  conn.close()
+  return rowcount
+
+
 def migrate_csv_to_db(csv_path, db_path=DATABASE_PATH):
   conn = sqlite3.connect(db_path)
   cursor = conn.cursor()
