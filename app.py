@@ -42,9 +42,10 @@ def home():
     _load_data()
 
     products = get_recommendaciones(int(user_sess['id']), k=5)
+    products_sale = buy_service.get_products_sale(int(user_sess['id']))
     purchases = get_purchases(int(user_sess['id']))
     similar_users = _get_similar_users(int(user_sess['id']))
-    return render_template('home.html', user=user, products=products, purchases=purchases, similar_users=similar_users)
+    return render_template('home.html', user=user, products=products, purchases=purchases, similar_users=similar_users, products_sale=products_sale)
   else:
     return redirect(url_for('index'))
 

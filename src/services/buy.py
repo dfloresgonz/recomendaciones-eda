@@ -8,3 +8,7 @@ def buy_product(product_bought):
 
   rowcount = bd_repository.buy_product(product_bought)
   print(f'rowcount: {rowcount}')
+
+
+def get_products_sale(user_id):
+  return bd_repository.get_products_sale(user_id)

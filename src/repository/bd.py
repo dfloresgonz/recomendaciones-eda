@@ -131,6 +131,32 @@ def buy_product(product_bought):
   return rowcount
 
 
+def get_products_sale(user_id):
+  conn = sqlite3.connect(DATABASE_PATH)
+  cursor = conn.cursor()
+  cursor.execute(
+      """ SELECT product_id, category_code, brand, price
+            FROM purchases AS p 
+           WHERE p.user_id <> ?
+             AND category_code <> ''
+             AND brand <> ''
+           GROUP BY product_id, category_code, brand, price
+          """, (user_id,))
+  productos = cursor.fetchall()
+  conn.close()
+
+  productos_dict = [
+      {
+          'product_id': rec[0],
+          'category_code': rec[1],
+          'brand': rec[2],
+          'price': round(rec[3], 2)
+      }
+      for rec in productos
+  ]
+  return productos_dict
+
+
 def migrate_csv_to_db(csv_path, db_path=DATABASE_PATH):
   conn = sqlite3.connect(db_path)
   cursor = conn.cursor()

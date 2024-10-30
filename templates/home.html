@@ -153,6 +153,19 @@
           </div>
         {% endfor %}
       </div>
+      <h2>Más Productos</h2>
+      <div class="featured-products">
+        {% for product_sale in products_sale %}
+          <div class="product">
+            <h3>{{ product_sale.product_id }}</h3>
+            <h3>{{ product_sale.category_code }}</h3>
+            <h3>{{ product_sale.brand }}</h3>
+            <p>${{ product_sale.price }}</p>
+            <p>{{ product_sale.score }}</p>
+            <button class="buy-button" onclick="buyProduct('{{ product_sale.product_id }}', '{{ product_sale.price }}', '{{ product_sale.category_code }}', '{{ product_sale.brand }}')">Buy Now</button>
+          </div>
+        {% endfor %}
+      </div>
       <h2>Productos comprados</h2>
         <div class="featured-products">
           {% for purchase in purchases %}
